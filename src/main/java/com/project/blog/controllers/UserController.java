@@ -1,5 +1,7 @@
 package com.project.blog.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class UserController {
 		UserDTO createdUser = this.userService.createUser(userDto);
 		return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
 	}
-	
+		
 	// Update user
 	@PutMapping("/update/{id}")
 	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDto, @PathVariable("id") Integer user_id){
@@ -44,10 +46,17 @@ public class UserController {
 		return new ResponseEntity<ApiResponse>(new ApiResponse("User Deleted Successfully",true),HttpStatus.OK);
 	}
 	
-	// Get user
+	// Get single user
 	@GetMapping("/get/{id}")
 	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Integer user_id){
 		UserDTO userDto = this.userService.getUserById(user_id);
-		return new ResponseEntity<UserDTO>(userDto,HttpStatus.OK);
+		return ResponseEntity.ok(userDto);
+	}
+	
+	// Get all users
+	@GetMapping("/get-all")
+	public ResponseEntity<List<UserDTO>> getAllUsers(){
+		List<UserDTO> userDtos = this.userService.getAllUsers();
+		return ResponseEntity.ok(userDtos);
 	}
 }
