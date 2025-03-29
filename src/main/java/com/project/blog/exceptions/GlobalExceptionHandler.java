@@ -38,7 +38,6 @@ public class GlobalExceptionHandler {
 			response.put(field, message);
 		});
 		
-		
 		return new ResponseEntity<Map<String,String>>(response,HttpStatus.BAD_REQUEST);
 	}
 
